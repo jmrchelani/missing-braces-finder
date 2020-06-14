@@ -19,9 +19,12 @@ int main()
 	cin;
 	ifstream file;
 	file.open(name.c_str());
-	if(!file.is_open()) return 0;
+	if(!file.is_open()) {
+		cout<<"not opened";
+		return 0;
+	}
 	string line;
-	int oC = 0, cC = 0, linenumber = 1, openBrace[100], ezpz = 0, meh = -1, lastIn[100];
+	int linenumber = 1, openBrace[100], ezpz = 0, meh = -1, lastIn[100];
 	for(int zz = 0; zz < 100; zz++) { openBrace[zz] = -1; lastIn[zz] = -1;}
 	while(getline(file, line))
 	{
@@ -42,9 +45,12 @@ int main()
 		}
 		linenumber++;
 	}
+	int countt = 0;
 	for(int b = 0; b < 100; b++){
 		if(openBrace[b] != -1){
+			countt++;
 			cout<<"There is an unclosed brace at line number: " << openBrace[b] <<endl;
 		}
 	}
+	if(countt == 0) cout<<"No Miss";
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Missing Bracket Finder</title>
+  </head>
+  <body style="background: black; color: blanchedalmond;">
+
+    <h1 style="text-align: center;">{ Missing Brackets Finder }</h1>
+
+    <input style="display: block; margin-left: auto; margin-right: auto;" type="file" name="file" id="file" />
+
+    <div style="text-align: center;"><p id="ezpz"></p></div>
+
+    <script>
+      document.getElementById("file").onchange = function handleFiles(input) {
+        const file = input.target.files[0];
+        const reader = new FileReader();
+
+        document.getElementById("ezpz").innerText =
+          "Finding missing brackets, let me please!";
+
+        var braces = [];
+
+        reader.onload = (event) => {
+          const file = event.target.result;
+          var allLines = file.split(/\r\n|\n/);
+          var lineno = 0;
+          // Reading line by line
+          allLines.forEach((line) => {
+            //console.log(line);
+            for (var i = 0; i < line.length; ++i) {
+              if (line[i] == "{") braces.push(lineno);
+              else if (line[i] == "}") braces.pop();
+              lineno++;
+            }
+          });
+          if (braces.length < 1)
+            document.getElementById("ezpz").innerText =
+              "No any unclosed brace found.\n";
+          else document.getElementById("ezpz").innerText = "";
+          while (braces.length > 0)
+            document.getElementById("ezpz").innerText +=
+              "Unclosed brace, opened on line: " + braces.pop() + "\n";
+          document.getElementById("ezpz").innerText += "\n\n\n\nNo need to thank me, it is just nothing lol.\n";
+          document.getElementById("ezpz").innerHTML += "<a href=\"https://github.com/jmrchelani\">@jmrchelani</a> - Milton\n";
+        };
+
+        reader.onerror = (event) => {
+          alert(event.target.error.name);
+        };
+
+        reader.readAsText(file);
+      };
+    </script>
+  </body>
+</html>

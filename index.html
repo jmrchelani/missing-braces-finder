@@ -34,8 +34,8 @@
             for (var i = 0; i < line.length; ++i) {
               if (line[i] == "{") braces.push(lineno);
               else if (line[i] == "}") braces.pop();
-              lineno++;
             }
+            lineno++;
           });
           if (braces.length < 1)
             document.getElementById("ezpz").innerText =
